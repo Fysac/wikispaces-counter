@@ -1,4 +1,5 @@
-wikispaces-counter - an online user counter specifically designed for Wikispaces.
+wikispaces-counter 
 ===
+An online user counter specifically designed for Wikispaces.
 
 
