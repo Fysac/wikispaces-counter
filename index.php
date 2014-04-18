@@ -15,10 +15,18 @@
             echo "Error: space name not received.<br>";
             exit;
         }
+        
         if (!isset($_SERVER["HTTP_REFERER"])){
             "Error: script cannot be called without a referer.<br>";
             exit;
         }
+        else if (substr($_SERVER["HTTP_REFERER"], 0, "https") !== false){
+            $using_https = true;
+        }
+        else {
+            $using_https = false;
+        }
+        
         if ($_GET["space"] == ""){
             echo "Error: space name cannot be empty.<br>";
             exit;
@@ -31,12 +39,17 @@
         }
 
         // Make sure counter is originating from the same domain it's targeting
-        // This code is for http only
-        if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
-            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 8)){
+        if ($using_https && ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
+            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 8))){
             echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
             exit;
         }
+        else if (!$using_https && ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
+            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 7))){
+            echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
+            exit;
+        }
+            
         $file = $space.".txt";
         if (!file_exists($file)){
             fopen($file, 'w');
