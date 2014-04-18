@@ -2,6 +2,11 @@
 
 An online user counter specifically designed for Wikispaces.
 
+## Features
+* Displays number of online users
+* Displays usernames and profile pictures
+* Guests cannot see the counter (may be changed in future)
+
 ## Quick setup
 Edit your wiki's navigation menu, and add an "Other HTML" widget with the following code:
 
