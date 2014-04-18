@@ -7,17 +7,35 @@
         $timeout = 300; // 5 minutes
         $time = time();
         
-        // Check if required variables have been passed
-        if (!isset($_GET["username"]) || !isset($_GET["space"]) || $_GET["username"] == "" 
-            || $_GET["space"] == "" || !isset($_SERVER["HTTP_REFERER"])){
+        if (!isset($_GET["username"])){
+            echo "Error: no username received.";
             exit;
         }
-        if (strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") === false){
+        if (!isset($_GET["space"])){
+            echo "Error: space name not received.";
+            exit;
+        }
+        if (!isset($_SERVER["HTTP_REFERER"])){
+            "Error: script cannot be called without a referer.";
+            exit;
+        }
+        if ($_GET["space"] == ""){
+            echo "Error: space name cannot be empty.";
             exit;
         }
         $username = $_GET["username"];
         $space = $_GET["space"];
+        if ($_GET["username"] == ""){
+            // Implement multiple guests later
+            $username = "Guest";
+        }
 
+        // Make sure counter is originating from the same domain it's targeting
+        // This code is for http only
+        if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
+            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 7)){
+            exit;
+        }
         $file = $space.".txt";
         if (!file_exists($file)){
             fopen($file, 'w');
