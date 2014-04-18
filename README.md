@@ -7,7 +7,6 @@ An online user counter specifically designed for Wikispaces.
 * Displays usernames and profile pictures
 
 ## Caveats
-* Does not work if you're accessing your wiki via HTTPS
 * Only limited support for guests
 
 ## Quick setup
@@ -20,7 +19,7 @@ Edit your wiki's navigation menu, and add an "Other HTML" widget with the follow
 
 ## Using your own remote server
 ###Requirements
-* Web server with PHP support
+* SSL-secured web server with PHP support
 * Writeable directory for wikispaces-counter
 
 Upload counter.php and counter.js into a directory of your choosing. Make sure that permissions are configured so that counter.php can create new text files in this directory.
