@@ -20,7 +20,7 @@
             "Error: script cannot be called without a referer.<br>";
             exit;
         }
-        else if (substr($_SERVER["HTTP_REFERER"], 0, "https") !== false){
+        else if (strpos($_SERVER["HTTP_REFERER"], "https") === 0){
             $using_https = true;
         }
         else {
