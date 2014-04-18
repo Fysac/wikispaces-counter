@@ -76,6 +76,7 @@
         foreach ($user_list as $value){
             echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value."><img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
         }
+        echo "<br><br><a href=https://github.com/Fysac/wikispaces-counter><small>wikispaces-counter</small></a>";
 
         // Remove line if timeout exceeded
         for ($i = 0; $i < count($arr); $i++){
