@@ -7,7 +7,7 @@ An online user counter specifically designed for Wikispaces.
 * Displays usernames and profile pictures
 
 ## Caveats
-* Does not work if you're accessing your wiki via https
+* Does not work if you're accessing your wiki via HTTPS
 * Only limited support for guests
 
 ## Quick setup
@@ -15,7 +15,7 @@ Edit your wiki's navigation menu, and add an "Other HTML" widget with the follow
 
 
 ````
-<script src='http://errror.mooo.com/wikispaces/counter/counter.js'></script>
+<script src='https://wikispaces-counter.herokuapp.com/counter.js'></script>
 ````
 
 ## Using your own remote server
@@ -29,17 +29,17 @@ Open counter.js and point the variable **url** to where your copy of counter.php
 
 For example:
 ````
-var url = 'http://errror.mooo.com/wikispaces/counter/counter.php';
+var url = 'https://wikispaces-counter.herokuapp.com/index.php';
 ````
 
 could become
 ````
-var url = 'http://example.com/myfolder/counter.php';
+var url = 'http://example.com/myfolder/index.php';
 ````
 
 After that, just add this line as a widget to your wiki's navigation menu, and you're done:
 ````
-<script src='http://example.com/myfolder/counter.js'></script>
+<script src='http://example.com/myfolder//counter.js'></script>
 ````
 
 
