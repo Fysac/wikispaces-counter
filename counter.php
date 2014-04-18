@@ -6,9 +6,13 @@
         <?php
         $timeout = 300; // 5 minutes
         $time = time();
-
-        // Passed from JavaScript
-        if (!isset($_GET["username"]) || !isset($_GET["space"])){
+        
+        // Check if required variables have been passed
+        if (!isset($_GET["username"]) || !isset($_GET["space"]) || $_GET["username"] == "" 
+            || $_GET["space"] == "" || !isset($_SERVER["HTTP_REFERER"])){
+            exit;
+        }
+        if (strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") === false){
             exit;
         }
         $username = $_GET["username"];
