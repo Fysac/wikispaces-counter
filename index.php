@@ -39,7 +39,7 @@
             $username = "Guest";
         }            
 
-        if (!file_exists($file = $space.".txt";)){
+        if (!file_exists($file = $space.".txt")){
             fopen($file, 'w');
         }
         $arr = file($file);
