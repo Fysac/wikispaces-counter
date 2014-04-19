@@ -15,51 +15,38 @@
             echo "Error: space name not received.<br>";
             exit;
         }
-        
-        if (!isset($_SERVER["HTTP_REFERER"])){
-            "Error: script cannot be called without a referer.<br>";
-            exit;
-        }
-        else if (strpos($_SERVER["HTTP_REFERER"], "https") === 0){
-            $using_https = true;
-        }
-        else {
-            $using_https = false;
-        }
-        
         if ($_GET["space"] == ""){
             echo "Error: space name cannot be empty.<br>";
             exit;
         }
-        $username = $_GET["username"];
+        if (!isset($_SERVER["HTTP_REFERER"])){
+            echo "Error: script cannot be called without a referer.<br>";
+            exit;
+        }
+        $wiki_using_https = (strpos($_SERVER["HTTP_REFERER"], "https") === 0) ? true : false;
         $space = $_GET["space"];
-        if ($_GET["username"] == ""){
-            // Implement multiple guests later
-            $username = "Guest";
-        }
-
+        
         // Make sure counter is originating from the same domain it's targeting
-        if ($using_https && ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
-            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 8))){
+        $url_offset = $wiki_using_https ? 8 : 7;
+        if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
+            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - $url_offset)){
             echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
             exit;
         }
-        else if (!$using_https && ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
-            strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - 7))){
-            echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
-            exit;
-        }
-            
-        $file = $space.".txt";
-        if (!file_exists($file)){
+        
+        $username = $_GET["username"];
+        if ($username == ""){
+            $username = "Guest";
+        }            
+
+        if (!file_exists($file = $space.".txt";)){
             fopen($file, 'w');
         }
-
+        $arr = file($file);
         $online_users = 0;
         $user_list = array();
         $user_is_listed = false;
 
-        $arr = file($file);
         for ($i = 0; $i < count($arr); $i++){
             $some_user = substr($arr[$i], 0, strpos($arr[$i], "    "));
             array_push($user_list, $some_user);
