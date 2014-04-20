@@ -83,7 +83,7 @@
 
 		echo "<b>Users online: ".$online_users."</b>";
 
-		// Display online users
+		// Display online users and pics
 		foreach ($user_list as $value){
 			echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
 				<img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
