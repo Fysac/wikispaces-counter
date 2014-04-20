@@ -46,7 +46,17 @@
         $online_users = 0;
         $user_list = array();
         $user_is_listed = false;
-
+		
+		// Remove line if timeout exceeded
+        for ($i = 0; $i < count($arr); $i++){
+            if ($time - intval(substr($arr[$i], strpos($arr[$i], "    ") + 4)) > $timeout){
+                unset($arr[$i]);
+                $arr = array_values($arr);
+                file_put_contents($file, implode($arr));
+            }
+        }
+		
+		// Count users in file
         for ($i = 0; $i < count($arr); $i++){
             $some_user = substr($arr[$i], 0, strpos($arr[$i], "    "));
             array_push($user_list, $some_user);
@@ -56,7 +66,7 @@
             }
             $online_users++;
         }
-        // Merely edit line of user
+        // Merely edit timestamp of user if already listed
         if ($user_is_listed){
             for ($i = 0; $i < count($arr); $i++){
                 $arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
@@ -78,15 +88,6 @@
             echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value."><img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
         }
         echo "<br><br><a href=https://github.com/Fysac/wikispaces-counter><small>wikispaces-counter</small></a>";
-
-        // Remove line if timeout exceeded
-        for ($i = 0; $i < count($arr); $i++){
-            if ($time - intval(substr($arr[$i], strpos($arr[$i], "    ") + 4)) > $timeout){
-                unset($arr[$i]);
-                $arr = array_values($arr);
-                file_put_contents($file, implode($arr));
-            }
-        }
-        ?>
+		?>
     </body>
 </html>
