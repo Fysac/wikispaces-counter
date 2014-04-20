@@ -1,6 +1,7 @@
 <html>
 	<head>
-		<base target="_parent"> // Links clicked in iframe will open in parent window
+		<base target="_parent">
+		<!-- Links clicked in iframe will open in parent window -->
 	</head>
 	<body>
 		<?php
