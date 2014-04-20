@@ -32,7 +32,7 @@ if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], 
 }
 
 $username = $_GET["username"];
-	if ($username == ""){
+if ($username == ""){
 	$username = "Guest";
 }			
 
