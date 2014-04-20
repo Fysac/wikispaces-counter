@@ -30,6 +30,7 @@ if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], 
 	echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
 	exit;
 }
+echo $space;
 
 $username = $_GET["username"];
 if ($username == ""){
@@ -47,6 +48,7 @@ $user_is_listed = false;
 // Remove line if timeout exceeded
 for ($i = 0; $i < count($arr); $i++){
 	if ($time - intval(substr($arr[$i], strpos($arr[$i], "	") + 4)) > $timeout){
+        echo "LOL";
 		unset($arr[$i]);
 		$arr = array_values($arr);
 		file_put_contents($file, implode($arr));
