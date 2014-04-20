@@ -1,6 +1,8 @@
 # wikispaces-counter 
 
-An online user counter specifically designed for Wikispaces.
+An online user counter designed for Wikispaces.
+
+*Note: this project is not an official Wikispaces product.*
 
 ## Features
 * Displays number of online users
