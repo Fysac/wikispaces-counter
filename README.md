@@ -2,7 +2,7 @@
 
 An online user counter designed for Wikispaces.
 
-*Note: this project is not an official Wikispaces product.*
+*Note: This project is not an official Wikispaces product.*
 
 ## Features
 * Displays number of online users
