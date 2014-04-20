@@ -30,6 +30,7 @@ if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], 
 	echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
 	exit;
 }
+echo $space;
 
 $username = $_GET["username"];
 if ($username == ""){
