@@ -68,7 +68,7 @@ for ($i = 0; $i < count($arr); $i++){
 	$online_users++;
 }
 // Merely edit timestamp of user if already listed
-if ($user_is_listed){
+if ($user_is_listed && $username != "Guest"){
     for ($i = 0; $i < count($arr); $i++){
         $arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
         $arr = array_values($arr);
