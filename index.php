@@ -27,10 +27,9 @@ $space = $_GET["space"];
 $url_offset = $wiki_using_https ? 8 : 7;
 if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], "://") + 3, 
 	strpos($_SERVER["HTTP_REFERER"], ".wikispaces.com") - $url_offset)){
-	echo "Error: wikispaces-counter can only be called from the wiki it's targeting.";
+	echo "Error: wikispaces-counter can only be called from the same wiki it's targeting.";
 	exit;
 }
-echo $space;
 
 $username = $_GET["username"];
 if ($username == ""){
@@ -47,8 +46,7 @@ $user_is_listed = false;
 
 // Remove line if timeout exceeded
 for ($i = 0; $i < count($arr); $i++){
-	if ($time - intval(substr($arr[$i], strpos($arr[$i], "	") + 4)) > $timeout){
-        echo "LOL";
+	if ($time - intval(substr($arr[$i], strpos($arr[$i], "    ") + 4)) > $timeout){
 		unset($arr[$i]);
 		$arr = array_values($arr);
 		file_put_contents($file, implode($arr));
@@ -57,7 +55,7 @@ for ($i = 0; $i < count($arr); $i++){
 
 // Count users in file
 for ($i = 0; $i < count($arr); $i++){
-	$some_user = substr($arr[$i], 0, strpos($arr[$i], "	"));
+	$some_user = substr($arr[$i], 0, strpos($arr[$i], "    "));
 	array_push($user_list, $some_user);
 	if ($some_user == $username){
 		$user_is_listed = true;
@@ -68,14 +66,14 @@ for ($i = 0; $i < count($arr); $i++){
 // Merely edit timestamp of user if already listed
 if ($user_is_listed){
 	for ($i = 0; $i < count($arr); $i++){
-		$arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."	".$time."\n";
+		$arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
 		$arr = array_values($arr);
 		file_put_contents($file, implode($arr)); // 'Glue' array elements into string
 	}
 }
 // Append user to file
 else {
-	file_put_contents($file, $username."	".$time."\n", FILE_APPEND);
+	file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
 	array_push($user_list, $username); // So that user sees himself on list
 	$online_users++;
 }
