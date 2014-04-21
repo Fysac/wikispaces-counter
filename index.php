@@ -3,7 +3,7 @@
 <?php
 $timeout = 300; // 5 minutes
 $time = time();
-$ip = $_SERVER["REMOTE_ADDR"]; // Only for distinguishing guests
+$ip = $_SERVER["HTTP_CLIENT_IP"]; // Only for distinguishing guests
 
 if (!isset($_GET["username"])){
 	echo "Error: no username received.<br>";
