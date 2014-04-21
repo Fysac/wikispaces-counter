@@ -3,6 +3,7 @@
 <?php
 $timeout = 300; // 5 minutes
 $time = time();
+$ip = $_SERVER["REMOTE_ADDR"]; // Only for distinguishing guests
 
 if (!isset($_GET["username"])){
 	echo "Error: no username received.<br>";
@@ -33,7 +34,7 @@ if ($space != substr($_SERVER["HTTP_REFERER"], strpos($_SERVER["HTTP_REFERER"], 
 
 $username = $_GET["username"];
 if ($username == ""){
-	$username = "Guest";
+	$username = "@".$ip; // '@' at pos 0 identifies a guest
 }			
 
 if (!file_exists($file = $space.".txt")){
@@ -62,13 +63,13 @@ for ($i = 0; $i < count($arr); $i++){
 		$user_is_listed = true;
 		$line_of_user = $i;
 	}
-    if ($some_user == "Guest"){
+    if (strpos($some_user, "@") === 0){
         $online_guests++;
     }
 	$online_users++;
 }
 // Merely edit timestamp of user if already listed
-if ($user_is_listed && $username != "Guest"){
+if ($user_is_listed){
     for ($i = 0; $i < count($arr); $i++){
         $arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
         $arr = array_values($arr);
@@ -79,13 +80,13 @@ if ($user_is_listed && $username != "Guest"){
 else {
     file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
     array_push($user_list, $username); // So that user sees himself on list
-    if ($username == "Guest"){
+    if ($username == "@".$ip){
         $online_guests++;
     }
     $online_users++;
 }
 
-echo "<h3>Online users: ".$online_users."</h3>";
+echo "<b>Online users: ".$online_users."</b>";
 
 // Display online users and pics
 foreach ($user_list as $value){
