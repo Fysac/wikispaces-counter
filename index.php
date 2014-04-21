@@ -41,6 +41,7 @@ if (!file_exists($file = $space.".txt")){
 }
 $arr = file($file);
 $online_users = 0;
+$online_guests = 0; // Guests count as users
 $user_list = array();
 $user_is_listed = false;
 
@@ -61,29 +62,38 @@ for ($i = 0; $i < count($arr); $i++){
 		$user_is_listed = true;
 		$line_of_user = $i;
 	}
+    if ($some_user == "Guest"){
+        $online_guests++;
+    }
 	$online_users++;
 }
 // Merely edit timestamp of user if already listed
 if ($user_is_listed){
-	for ($i = 0; $i < count($arr); $i++){
-		$arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
-		$arr = array_values($arr);
-		file_put_contents($file, implode($arr)); // 'Glue' array elements into string
-	}
+    for ($i = 0; $i < count($arr); $i++){
+        $arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
+        $arr = array_values($arr);
+        file_put_contents($file, implode($arr)); // 'Glue' array elements into string
+    }
 }
 // Append user to file
 else {
-	file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
-	array_push($user_list, $username); // So that user sees himself on list
-	$online_users++;
+    file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
+    array_push($user_list, $username); // So that user sees himself on list
+    if ($username == "Guest"){
+        $online_guests++;
+    }
+    $online_users++;
 }
 
-echo "<b>Users online: ".$online_users."</b>";
+echo "<h3>Online users: ".$online_users."</h3>";
 
 // Display online users and pics
 foreach ($user_list as $value){
-	echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
-		<img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
+    if ($value != "Guest"){
+        echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
+            <img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
+    }
 }
+echo "(".$online_guests." guests)";
 echo "<br><br><a href=https://github.com/Fysac/wikispaces-counter><small>wikispaces-counter</small></a>";
 ?>
