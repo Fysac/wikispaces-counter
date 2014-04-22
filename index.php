@@ -65,37 +65,37 @@ for ($i = 0; $i < count($arr); $i++){
 		$user_is_listed = true;
 		$line_of_user = $i;
 	}
-    if (strpos($some_user, "@") === 0){
-        $online_guests++;
-    }
+	if (strpos($some_user, "@") === 0){
+		$online_guests++;
+	}
 	$online_users++;
 }
 // Merely edit timestamp of user if already listed
 if ($user_is_listed){
-    for ($i = 0; $i < count($arr); $i++){
-        $arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
-        $arr = array_values($arr);
-        file_put_contents($file, implode($arr)); // 'Glue' array elements into string
-    }
+	for ($i = 0; $i < count($arr); $i++){
+		$arr[$line_of_user] = substr($arr[$line_of_user], 0, strlen($username))."    ".$time."\n";
+		$arr = array_values($arr);
+		file_put_contents($file, implode($arr)); // 'Glue' array elements into string
+	}
 }
 // Append user to file
 else {
-    file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
-    array_push($user_list, $username); // So that user sees himself on list
-    if ($username == "@".$ip){
-        $online_guests++;
-    }
-    $online_users++;
+	file_put_contents($file, $username."    ".$time."\n", FILE_APPEND);
+	array_push($user_list, $username); // So that user sees himself on list
+	if ($username == "@".$ip){
+		$online_guests++;
+	}
+	$online_users++;
 }
 
 echo "<b>Online users: ".$online_users."</b>";
 
 // Display online users and pics
 foreach ($user_list as $value){
-    if (strpos($value, "@") === false){
-        echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
-            <img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
-    }
+	if (strpos($value, "@") === false){
+		echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
+			<img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
+	}
 }
 if ($online_guests != 0){
 	$guest_info = $online_guests > 1 ? "<br>(".$online_guests." guests)" : "<br>(".$online_guests." guest)";
