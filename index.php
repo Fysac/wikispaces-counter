@@ -3,7 +3,8 @@
 <?php
 $timeout = 300; // 5 minutes
 $time = time();
-$ip = $_SERVER["HTTP_CLIENT_IP"]; // Only for distinguishing guests
+$headers = apache_request_headers(); 
+echo $headers['X-Forwarded-For']; // Only for distinguishing guests
 
 if (!isset($_GET["username"])){
 	echo "Error: no username received.<br>";
@@ -90,7 +91,7 @@ echo "<b>Online users: ".$online_users."</b>";
 
 // Display online users and pics
 foreach ($user_list as $value){
-    if ($value != "Guest"){
+    if (strpos($value, "@") === 0){
         echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
             <img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
     }
