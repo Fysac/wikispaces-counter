@@ -7,9 +7,8 @@ ini_set("display_errors", 1);
 $timeout = 300; // 5 minutes
 $time = time();
 
-if (empty($ip = $_SERVER["HTTP_X_FORWARDED_FOR"])){ // Because Heroku uses proxies
-	$ip = $_SERVER["REMOTE_ADDR"];
-}
+// Because Heroku uses proxies
+$ip = empty($_SERVER["HTTP_X_FORWARDED_FOR"]) ? $_SERVER["REMOTE_ADDR"] : $_SERVER["HTTP_X_FORWARDED_FOR"];
 
 if (!isset($_GET["username"])){
 	echo "Error: no username received.<br>";
