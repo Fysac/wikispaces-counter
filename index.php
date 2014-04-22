@@ -4,7 +4,7 @@
 $timeout = 300; // 5 minutes
 $time = time();
 
-if (!empty($ip = $_SERVER["HTTP_X_FORWARDED_FOR"])){ // Because Heroku uses proxies
+if (empty($ip = $_SERVER["HTTP_X_FORWARDED_FOR"])){ // Because Heroku uses proxies
 	$ip = $_SERVER["REMOTE_ADDR"];
 }
 
