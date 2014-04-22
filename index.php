@@ -3,8 +3,10 @@
 <?php
 $timeout = 300; // 5 minutes
 $time = time();
-$headers = apache_request_headers(); 
-echo $headers['X-Forwarded-For']; // Only for distinguishing guests
+
+if (!empty($ip = $_SERVER["HTTP_X_FORWARDED_FOR"])){ // Because Heroku uses proxies
+	$ip = $_SERVER["REMOTE_ADDR"];
+}
 
 if (!isset($_GET["username"])){
 	echo "Error: no username received.<br>";
@@ -91,7 +93,7 @@ echo "<b>Online users: ".$online_users."</b>";
 
 // Display online users and pics
 foreach ($user_list as $value){
-    if (strpos($value, "@") === 0){
+    if (strpos($value, "@") === false){
         echo "<br><a style=text-decoration:none; href=http://wikispaces.com/user/view/".$value.">
             <img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
     }
