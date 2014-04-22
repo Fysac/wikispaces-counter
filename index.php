@@ -100,6 +100,7 @@ foreach ($user_list as $value){
             <img src=http://www.wikispaces.com/user/pic/1350501656/".$value."-sm.jpg>  ".$value."</a>";
     }
 }
-echo "<br>(".$online_guests." guests)";
+$guest_info = $online_guests > 1 ? "<br>(".$online_guests." guests)" : "<br>(".$online_guests." guest)";
+echo $guest_info;
 echo "<br><br><a href=https://github.com/Fysac/wikispaces-counter><small>wikispaces-counter</small></a>";
 ?>
