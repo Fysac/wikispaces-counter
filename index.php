@@ -1,6 +1,9 @@
 <base target="_parent"> <!-- Links clicked in iframe will open in parent window -->
 
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 $timeout = 300; // 5 minutes
 $time = time();
 
