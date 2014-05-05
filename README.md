@@ -21,9 +21,9 @@ Edit your wiki's navigation menu, and add an "Other HTML" widget with the follow
 * SSL-secured web server with PHP support
 * Writeable directory for wikispaces-counter
 
-Upload counter.php and counter.js into a directory of your choosing. Make sure that permissions are configured so that counter.php can create new text files in this directory.
+Upload index.php and counter.js into a directory of your choosing. Make sure that permissions are configured so that index.php can create new text files in this directory.
 
-Open counter.js and point the variable **url** to where your copy of counter.php is being hosted.
+Open counter.js and point the variable **url** to where your copy of index.php is being hosted.
 
 For example:
 ````
@@ -39,9 +39,3 @@ After that, just add this line as a widget to your wiki's navigation menu, and y
 ````
 <script src='http://example.com/myfolder//counter.js'></script>
 ````
-
-
-
-
-
-
