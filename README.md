@@ -2,7 +2,7 @@
 An online user counter designed for Wikispaces.
 
 ## Features
-* Displays number of online users
+* Displays number of online (active in the last 5 minutes) users 
 * Displays usernames and profile pictures
 
 ## Quick setup
